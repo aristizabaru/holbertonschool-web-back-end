@@ -24,6 +24,8 @@ class FIFOCache(BaseCaching):
             discard_key = list(self.cache_data.keys())[0]
             del self.cache_data[discard_key]
             print("DISCARD: {}".format(discard_key))
+        if(key in self.cache_data.keys()):
+            del self.cache_data[key]
         self.cache_data[key] = item
 
     def get(self, key):
