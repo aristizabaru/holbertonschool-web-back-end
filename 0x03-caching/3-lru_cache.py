@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""2-lifo_cache"""
+"""3-lru_cache"""
 from base_caching import BaseCaching
 
 
