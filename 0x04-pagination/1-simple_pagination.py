@@ -4,6 +4,7 @@
 import csv
 from logging import exception
 import math
+from shutil import ExecError
 from typing import List, Tuple
 
 index_range = __import__("0-simple_helper_function").index_range
@@ -48,5 +49,5 @@ class Server:
 
         try:
             return self.dataset()[start:end]
-        except:
+        except Exception:
             return []
