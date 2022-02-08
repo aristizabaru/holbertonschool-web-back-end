@@ -33,7 +33,8 @@ class Server:
 
         Args:
             page (int, optional): number of page. Defaults to 1.
-            page_size (int, optional): size or limit of the page. Defaults to 10.
+            page_size (int, optional): size or limit of the page.
+            Defaults to 10.
 
         Returns:
             List[List]: data set filtered by page indexes
