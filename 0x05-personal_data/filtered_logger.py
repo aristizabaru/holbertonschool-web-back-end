@@ -9,21 +9,39 @@ PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+    """Redacting Formatter class
+
+    Args:
+        fields (List[str]): fields to obfuscate
+
+    Returns:
+        RedactingFormatter: new RedactingFormatter object
+    """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]):
+        """initialize new instance
+
+        Args:
+            fields (List[str]): fields to obfuscate
+        """
         # create format simple format object with custom
         # attribute fields and method filter_datum()
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        """return a obfuscate string
 
+        Args:
+            record (logging.LogRecord): original debug string
+
+        Returns:
+            str: obfuscate string
+        """
         # super().format(record) returns string formated
         # to then call filter_datum() to obfuscate it
         return filter_datum(self.fields, self.REDACTION,
