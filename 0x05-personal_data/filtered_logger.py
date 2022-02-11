@@ -2,8 +2,11 @@
 """filtered_logger module"""
 
 import logging
-from typing import List
+import mysql.connector
+import os
 import re
+from typing import List
+
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
@@ -86,3 +89,18 @@ def get_logger() -> logging.Logger:
     new_logger.addHandler(stream_handler)
 
     return new_logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """returns a new mysql connector object
+
+    Returns:
+        mysql.connector.connection.MySQLConnectio: mysql connector object
+    """
+    config = {
+        'user': os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        'password': os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+        'host': os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        'database': os.getenv('PERSONAL_DATA_DB_NAME')
+    }
+    return mysql.connector.connect(**config)
