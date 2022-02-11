@@ -104,3 +104,23 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         'database': os.getenv('PERSONAL_DATA_DB_NAME')
     }
     return mysql.connector.connect(**config)
+
+
+def main() -> None:
+    """print to stdout data from DB with obfuscated values
+    """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    my_logger = get_logger()
+    fields = [i[0] for i in cursor.description]
+    for row in cursor:
+        string = ''.join('{}={}; '.format(f, str(r))
+                         for r, f in zip(row, fields))
+        my_logger.info(string.strip())
+    cursor.close()
+    db.close()
+
+
+if __name__ == "__main__":
+    main()
