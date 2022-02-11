@@ -115,6 +115,8 @@ def main() -> None:
     my_logger = get_logger()
     fields = [i[0] for i in cursor.description]
     for row in cursor:
+        # join every row with the table fields to match
+        # log string format
         string = ''.join('{}={}; '.format(f, str(r))
                          for r, f in zip(row, fields))
         my_logger.info(string.strip())
