@@ -5,26 +5,26 @@ from pymongo import MongoClient
 if __name__ == "__main__":
     """ Improves 12-log_stats.py by adding the top 10
     of the most present IPs in the collection nginx
-    of the database logs"""
+    of the database logs """
     client = MongoClient('mongodb://127.0.0.1:27017')
-    collection = client.logs.nginx
+    nginx_collection = client.logs.nginx
 
-    logs = collection.count_documents({})
-    print('{} logs'.format(logs))
+    n_logs = nginx_collection.count_documents({})
+    print(f'{n_logs} logs')
 
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     print('Methods:')
     for method in methods:
-        count = collection.count_documents({"method": method})
-        print('\tmethod {}: {}'.format(method, count))
+        count = nginx_collection.count_documents({"method": method})
+        print(f'\tmethod {method}: {count}')
 
-    status_check = collection.count_documents(
+    status_check = nginx_collection.count_documents(
         {"method": "GET", "path": "/status"}
     )
 
-    print('{} status check'.format(status_check))
+    print(f'{status_check} status check')
 
-    top_ips = collection.aggregate([
+    top_ips = nginx_collection.aggregate([
         {"$group":
             {
                 "_id": "$ip",
@@ -44,4 +44,4 @@ if __name__ == "__main__":
     for top_ip in top_ips:
         ip = top_ip.get("ip")
         count = top_ip.get("count")
-        print('\t{}: {}'.format(ip, count))
+        print(f'\t{ip}: {count}')
