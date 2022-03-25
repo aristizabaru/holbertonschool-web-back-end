@@ -5,5 +5,5 @@ export default function getNeighborhoodsList() {
   this.addNeighborhood = (newNeighborhood) => {
     self.sanFranciscoNeighborhoods.push(newNeighborhood);
     return self.sanFranciscoNeighborhoods;
-  };
+  }
 }
