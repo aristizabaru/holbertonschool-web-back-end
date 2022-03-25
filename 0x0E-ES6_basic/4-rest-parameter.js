@@ -1,3 +1,4 @@
 export default function returnHowManyArguments(...input) {
-  return input.length;
+  let val = input.length;
+  return val
 }
